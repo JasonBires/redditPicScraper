@@ -18,19 +18,26 @@ def pullPage(pageString):
     linkChaser.addheaders = [('User-agent', 'imgurScrapin')]
 
     br.open(pageString)
+    if re.match("(.)*www.reddit.com/over18(.)*", br.geturl()):
+        print "fuck"
+        br.set_cookie("name=over18;content=1;domain=.reddit.com;path=/")
+        br.open(pageString)
+        print br.geturl()
     files = []
-
-    for link in br.links(url_regex=r"http://(.)*imgur(.)*"):
-        if link.text != "[IMG]":
-            if not re.match("(.)*i.imgur(.)*", link.url):
-                linkChaser.open(url=link.url)
-                for imgLink in linkChaser.links(url_regex=r"(.)*/i.imgur(.)*"):
-                    fileName = nameImgurFile(imgLink.url)
-                    linkChaser.retrieve("http:" + imgLink.url, filename=fileName)
-            else:
-                linkChaser.open(url=link.url)
-                fileName = nameImgurFile(link.url)
-                br.retrieve(link.url, filename=fileName)
+    try:
+        for link in br.links(url_regex=r"http://(.)*imgur(.)*"):
+            if link.text != "[IMG]":
+                if not re.match("(.)*i.imgur(.)*", link.url):
+                    linkChaser.open(url=link.url)
+                    for imgLink in linkChaser.links(url_regex=r"(.)*/i.imgur(.)*"):
+                        fileName = nameImgurFile(imgLink.url)
+                        linkChaser.retrieve("http:" + imgLink.url, filename=fileName)
+                else:
+                    linkChaser.open(url=link.url)
+                    fileName = nameImgurFile(link.url)
+                    br.retrieve(link.url, filename=fileName)
+    except:
+        print "dropped"
 def pullXPages(numPages, pageString):
     curPage = pageString
     br = mechanize.Browser()
@@ -41,4 +48,4 @@ def pullXPages(numPages, pageString):
         curPage = br.links(url_regex=r"http://www.reddit.com/r/(.)*?count(.)*&after=(.)*").next().url
         print curPage
         
-pullXPages(5, "http://www.reddit.com/r/earthporn")
+pullXPages(10, "http://www.reddit.com/r/waterporn")
