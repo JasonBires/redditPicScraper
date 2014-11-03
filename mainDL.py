@@ -31,11 +31,11 @@ def pullPage(pageString):
                     linkChaser.open(url=link.url)
                     for imgLink in linkChaser.links(url_regex=r"(.)*/i.imgur(.)*"):
                         fileName = nameImgurFile(imgLink.url)
-                        linkChaser.retrieve("http:" + imgLink.url, filename=fileName)
+                        linkChaser.retrieve("http:" + imgLink.url, filename="pics/" + fileName)
                 else:
                     linkChaser.open(url=link.url)
                     fileName = nameImgurFile(link.url)
-                    br.retrieve(link.url, filename=fileName)
+                    br.retrieve(link.url, filename="pics/" + fileName)
     except:
         print "dropped"
 def pullXPages(numPages, pageString):
@@ -47,5 +47,9 @@ def pullXPages(numPages, pageString):
         br.open(curPage)
         curPage = br.links(url_regex=r"http://www.reddit.com/r/(.)*?count(.)*&after=(.)*").next().url
         print curPage
-        
-pullXPages(10, "http://www.reddit.com/r/waterporn")
+
+def main():
+    pullXPages(15, "http://www.reddit.com/r/tumblrinaction")
+    
+if __name__ == '__main__':
+    main()
