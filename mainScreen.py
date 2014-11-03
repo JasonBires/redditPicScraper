@@ -3,7 +3,7 @@ import sys
 import mainDL as scraper
 
 class Example(QtGui.QWidget):
-    
+    url = ""
     def __init__(self):
         super(Example, self).__init__()
         
@@ -12,14 +12,13 @@ class Example(QtGui.QWidget):
     def initUI(self):
         
         run = QtGui.QLabel('Run')
-        author = QtGui.QLabel('Author')
-        review = QtGui.QLabel('Review')
+        urlButton = QtGui.QPushButton('URL')
 
         runButton = QtGui.QPushButton("RUNME", self)
-        authorEdit = QtGui.QLineEdit()
-        reviewEdit = QtGui.QTextEdit()
+        urlEdit = QtGui.QTextEdit()
         
         runButton.clicked.connect(self.buttonClicked)
+        urlEdit.textChanged.connect(self.saveURL)
         
         grid = QtGui.QGridLayout()
         grid.setSpacing(10)
@@ -27,11 +26,11 @@ class Example(QtGui.QWidget):
         grid.addWidget(run, 1, 0)
         grid.addWidget(runButton, 1, 1)
 
-        grid.addWidget(author, 2, 0)
-        grid.addWidget(authorEdit, 2, 1)
+        grid.addWidget(urlButton, 2, 0)
+        grid.addWidget(urlEdit, 2, 1)
 
-        grid.addWidget(review, 3, 0)
-        grid.addWidget(reviewEdit, 3, 1, 5, 1)
+        #grid.addWidget(review, 3, 0)
+        #grid.addWidget(reviewEdit, 3, 1, 5, 1)
         
         self.setLayout(grid) 
         
@@ -40,7 +39,11 @@ class Example(QtGui.QWidget):
         self.show()
     
     def buttonClicked(self):
-        scraper.pullXPages(2, "http://www.reddit.com/r/earthporn")
+        scraper.pullXPages(2, self.url)
+        
+    def saveURL(self):
+        sender = self.sender()
+        self.url = str(sender.toPlainText())
         
 def main():
     
