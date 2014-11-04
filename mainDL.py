@@ -5,12 +5,22 @@ import mechanize
 """Pass in a URL from imgur, ergo imgLink.url
    Return a properly formatted string"""
 def nameImgurFile(imgUrl):
+    """Prepare a string to become a file name
+    
+    Keyword arguments:
+    imgUrl -- the URL to be converted to a filename
+    """
     name = imgUrl.lstrip('http://')
     name = name.replace('/', '_')
     name = name.replace('?', '')
     return name
 
 def pullPage(pageString):
+    """Grabs all the images from a subreddit page
+    
+    Keyword arguments:
+    pageString -- the URL to pull from
+    """
     br = mechanize.Browser()
     linkChaser = mechanize.Browser()
 
@@ -38,7 +48,13 @@ def pullPage(pageString):
     except:
         print "dropped"
         
-def pullXPages(numPages, pageString):
+def pullXPages(numPages=1, pageString):
+    """Iterates through a subreddit.
+    
+    Keyword arguments:
+    numPages -- how deep you'd like to go (default 1)
+    pageString -- the URL for the page
+    """
     curPage = pageString
     br = mechanize.Browser()
     br.addheaders = [('User-agent', 'earthpornScraping')]
