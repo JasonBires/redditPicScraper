@@ -19,7 +19,6 @@ def pullPage(pageString):
 
     br.open(pageString)
     if re.match("(.)*www.reddit.com/over18(.)*", br.geturl()):
-        print "fuck"
         br.set_cookie("name=over18;content=1;domain=.reddit.com;path=/")
         br.open(pageString)
         print br.geturl()
@@ -38,6 +37,7 @@ def pullPage(pageString):
                     br.retrieve(link.url, filename="pics/" + fileName)
     except:
         print "dropped"
+        
 def pullXPages(numPages, pageString):
     curPage = pageString
     br = mechanize.Browser()
