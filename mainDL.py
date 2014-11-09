@@ -48,7 +48,7 @@ def pullPage(pageString):
     except:
         print "dropped"
         
-def pullXPages(numPages=1, pageString):
+def pullXPages(numPages, pageString):
     """Iterates through a subreddit.
     
     Keyword arguments:
