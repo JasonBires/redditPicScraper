@@ -65,7 +65,7 @@ def pullXPages(numPages, pageString):
         print curPage
 
 def main():
-    pullXPages(15, "http://www.reddit.com/r/tumblrinaction")
+    pullXPages(15, "http://www.reddit.com/r/earthporn")
     
 if __name__ == '__main__':
     main()
