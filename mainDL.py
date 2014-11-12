@@ -21,6 +21,11 @@ def pullPage(pageString):
     Keyword arguments:
     pageString -- the URL to pull from
     """
+    try:
+        if not os.path.exists("./pics"):
+            os.makedirs("./pics")
+    except:
+        print "directory creation failed"
     br = mechanize.Browser()
     linkChaser = mechanize.Browser()
 
