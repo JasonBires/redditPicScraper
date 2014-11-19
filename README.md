@@ -1,4 +1,4 @@
-redditPicScraper
+Reddit Picture Scraper
 ================
 This is a personal project I'm working on in order to develop a nice GUI for users who are interested in scraping pics off of subreddits. Of course, anyone viewing this page should feel free to add on and develop for it.
   
@@ -8,6 +8,7 @@ Features to Implement:
 * Downloading images based on metrics such as user score and number of comments
 * Traversing subreddits behind the "over18" page
 * A much better looking GUI (what exists is very bare bones)
+* Use the multiprocessing library to speed up file downloads and keep the user interface responsive
   
 Tools used in this project:
 * mechanize
